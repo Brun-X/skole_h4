@@ -7,7 +7,14 @@ sudo adduser vsftpd
 sudo chown nobody:nogroup /home/pi
 sudo chmod 777 /home/pi
 sudo mkdir /home/pi/ftp_backup
-sudo cp /etc/vsftpd.conf /etc/vsftpd.conf.bak
+
+FILE=/etc/vsftpd.conf.bak
+if [ -f "$FILE" ]; then
+	echo "$FILE already exists and will NOT be overwritten"
+else
+	echo "vsftpd.conf will be backed up to /etc/vsftpd.conf.bak"
+	sudo cp /etc/vsftpd.conf /etc/vsftpd.conf.bak
+fi
 
 sudo echo "listen=NO
 listen_ipv6=YES
