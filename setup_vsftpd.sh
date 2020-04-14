@@ -1,16 +1,12 @@
+#/bin/sh
 
 sudo apt-get install vsftpd -y
-
 sudo systemctl start vsftpd
 sudo systemctl enable vsftpd
-
 sudo adduser vsftpd
-
-sudo chown nobody:nogroup /home
-sudo chmod 777 /home
-
-mkdir /home/pi/ftp_backup
-
+sudo chown nobody:nogroup /home/pi
+sudo chmod 777 /home/pi
+sudo mkdir /home/pi/ftp_backup
 sudo cp /etc/vsftpd.conf /etc/vsftpd.conf.bak
 
 sudo echo "listen=NO
@@ -30,11 +26,10 @@ pasv_enable=Yes
 pasv_min_port=10000
 pasv_max_port=11000
 user_sub_token=$USER
-local_root=/home/$USER/ftp
+local_root=/home/pi
 userlist_enable=YES
 userlist_file=/etc/vsftpd.userlist
 userlist_deny=NO" > /etc/vsftpd.conf
 
 sudo echo "vsftp" > /etc/vsftpd.userlist
-
 sudo systemctl restart vsftpd
